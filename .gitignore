@@ -1,0 +1,18 @@
+# JetBrains IDE
+.idea/
+
+# Compiled Java class files
+*.class
+
+# Compiled Python bytecode
+*.py[cod]
+
+# Package files
+*.jar
+
+# Module setting
+*.iml
+
+# Maven
+target/
+dist/
