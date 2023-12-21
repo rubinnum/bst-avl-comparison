@@ -22,8 +22,6 @@ public class Main {
         avlTree.insert("eee");
         avlTree.insert("ccc");
         avlTree.insert("ddd");
-
-
     }
 
 }
