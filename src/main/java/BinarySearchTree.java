@@ -2,33 +2,33 @@ public class BinarySearchTree {
     Node root = null;
 
     public void insert(String word) {
-            Node parent = null;
-            Node tmp = root;
+        Node parent = null;
+        Node tmp = root;
 
-            while(tmp != null) {
-                if (alphabeticallyBigger(word, tmp.word)) {
-                    parent = tmp;
-                    tmp = tmp.rightChild;
-                }
-                else {
-                    parent = tmp;
-                    tmp = tmp.leftChild;
-                }
-            }
-
-            Node inserted = new Node();
-            inserted.word = word;
-            if (parent == null) {
-                root = inserted;
+        while(tmp != null) {
+            if (alphabeticallyBigger(word, tmp.word)) {
+                parent = tmp;
+                tmp = tmp.rightChild;
             }
             else {
-                if (alphabeticallyBigger(word, parent.word)) {
-                    parent.rightChild = inserted;
-                }
-                else {
-                    parent.leftChild = inserted;
-                }
+                parent = tmp;
+                tmp = tmp.leftChild;
             }
+        }
+
+        Node inserted = new Node();
+        inserted.word = word;
+        if (parent == null) {
+            root = inserted;
+        }
+        else {
+            if (alphabeticallyBigger(word, parent.word)) {
+                parent.rightChild = inserted;
+            }
+            else {
+                parent.leftChild = inserted;
+            }
+        }
     }
 
     public boolean searchFor(String word) {
