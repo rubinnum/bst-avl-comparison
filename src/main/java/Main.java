@@ -20,6 +20,8 @@ public class Main {
         avlTree.insert("bbb");
         avlTree.insert("ggg");
         avlTree.insert("eee");
+        avlTree.insert("ccc");
+        avlTree.insert("ddd");
 
 
     }

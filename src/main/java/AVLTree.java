@@ -2,12 +2,11 @@ public class AVLTree {
     AVLNode root = null;
 
     public void insert (String word) {
+        AVLNodeStack avlNodeStack = new AVLNodeStack();
         AVLNode parent = null;
-        AVLNode grandparent = null;
         AVLNode tmp = root;
 
         while(tmp != null) {
-            grandparent = parent;
             parent = tmp;
 
             if (alphabeticallyBigger(word, tmp.word)) {
@@ -16,6 +15,7 @@ public class AVLTree {
             else {
                 tmp = tmp.leftChild;
             }
+            avlNodeStack.push(parent);
         }
 
         AVLNode inserted = new AVLNode();
@@ -31,17 +31,24 @@ public class AVLTree {
             else {
                 parent.leftChild = inserted;
             }
-            updateNodeHeight(parent);
-            if (grandparent != null) {
-                updateNodeHeight(grandparent);
-                int balance = getBalance(grandparent);
-                root = applyRotation(balance, grandparent);
+            while (!avlNodeStack.isEmpty()) {
+                parent = avlNodeStack.peek();
+                updateNodeHeight(parent);
+                int balance = getBalance(parent);
+                AVLNode temp = parent;
+                parent = applyRotation(balance, parent);
+                avlNodeStack.pop();
+
+                if (!avlNodeStack.isEmpty()) {
+                    if (avlNodeStack.peek().leftChild == temp) {
+                        avlNodeStack.peek().leftChild = parent;
+                    }
+                    else if (avlNodeStack.peek().rightChild == temp) {
+                        avlNodeStack.peek().rightChild = parent;
+                    }
+                }
             }
-
-
-//            updateNodeHeight(parent);
-//            int balance = getBalance(parent);
-//            applyRotation(balance, parent);
+            root = parent;
         }
     }
 
@@ -51,7 +58,7 @@ public class AVLTree {
                 return rotateRight(avlNode);
             }
             else {
-                rotateLeft(avlNode.leftChild);
+                avlNode.leftChild = rotateLeft(avlNode.leftChild);
                 return rotateRight(avlNode);
             }
         }
@@ -61,7 +68,7 @@ public class AVLTree {
                 return rotateLeft(avlNode);
             }
             else {
-                rotateRight(avlNode.rightChild);
+                avlNode.rightChild = rotateRight(avlNode.rightChild);
                 return rotateLeft(avlNode);
             }
         }
