@@ -115,6 +115,21 @@ public class AVLTree {
         return Math.max(a, b);
     }
 
+    public boolean searchFor(String word) {
+        return search(root, word) != null;
+    }
+
+    private AVLNode search(AVLNode root, String word) {
+        if (root == null || root.word.contentEquals(word))
+            return root;
+
+        if (alphabeticallyBigger(word, root.word)) {
+            return search(root.rightChild, word);
+        }
+
+        return search(root.leftChild, word);
+    }
+
     private boolean alphabeticallyBigger(String newWord, String parentWord) {
         return newWord.compareTo(parentWord) >= 0;
     }
